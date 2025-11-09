@@ -1,0 +1,622 @@
+/* ---------------------------------------------------
+   Global Styles
+--------------------------------------------------- */
+.portfolio-root {
+  position: relative;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Smooth fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Neon gold glow */
+.glow-gold {
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+:root {
+  --nav-h: 72px; /* keep in sync with .navbar height */
+}
+
+html {
+  scroll-behavior: smooth; /* optional, JS smooth scroll already handles clicks */
+}
+
+/* ---------------------------------------------------
+   Background Canvas
+--------------------------------------------------- */
+.portfolio-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.9;
+  filter: blur(0.5px);
+}
+
+/* ---------------------------------------------------
+   Intro Overlay
+--------------------------------------------------- */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.5s ease-out;
+  z-index: 50;
+}
+
+.intro-box {
+  width: 90%;
+  max-width: 640px;
+  padding: 32px;
+  border-radius: 12px;
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 215, 80, 0.4);
+  box-shadow: 0 0 25px rgba(255, 215, 80, 0.15);
+  backdrop-filter: blur(12px);
+}
+
+.intro-code {
+  color: #ffe680;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Cursor */
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: #ffd700;
+  margin-left: 4px;
+  animation: blink 0.5s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+/* -----------------------------
+   FIXED NAVBAR
+------------------------------ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-height: 40px;
+  width: 100%;
+  padding: 18px 40px;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 200;
+}
+
+.nav-logo {
+  color: #ffd700;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+.nav-links {
+  margin-right: 100px;
+  display: flex;
+  gap: 30px;
+}
+
+.nav-links a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1rem;
+  font-weight: 500;
+  transition: 0.3s ease;
+  position: relative;
+  text-decoration: none;
+}
+
+/* Hover gold glow effect */
+.nav-links a:hover {
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+}
+
+/* Underline animation */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #ffd700;
+  transition: 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.active-link {
+  color: #ffd700 !important;
+  font-weight: 700;
+  text-shadow: 0 0 14px rgba(255, 215, 0, 1);
+}
+
+.active-link::after {
+  width: 100% !important;
+}
+
+/* ---------------------------------------------------
+   Page Content
+--------------------------------------------------- */
+.portfolio-content {
+  position: relative;
+  z-index: 5;
+  max-width: 900px;
+  margin: auto;
+  padding-top: 120px; /* prevent content from hiding under navbar */
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 60px;
+  animation: fadeIn 2s ease;
+}
+
+section {
+  margin: 0;
+  padding: 72px;
+}
+
+/* ---------------------------------------------------
+   Header
+--------------------------------------------------- */
+.title-bar {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeIn 0.8s ease;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #ffd700;
+  text-shadow: 0 0 10px rgba(255, 200, 0, 0.3);
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-size: 1.15rem;
+  color: rgba(255, 255, 200, 0.75);
+}
+
+/* ---------------------------------------------------
+   Section Layout
+--------------------------------------------------- */
+.section {
+  text-align: center;
+  margin-bottom: 50px;
+  padding-top: 120px;
+  padding-bottom: 50px;
+}
+
+.section-title {
+  font-size: 2rem;
+  text-align: center;
+  font-weight: 600;
+  color: #ffd700;
+  margin-bottom: 12px;
+  text-shadow: 0px 0px 8px rgba(255, 215, 0, 0.3);
+}
+
+.text-light {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------------------------------------------------
+   About Section
+--------------------------------------------------- */
+.about {
+  padding-top: 120px;
+  padding-bottom: 50px;
+  display: flex;
+  gap: 30px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 60px;
+  animation: fadeIn 0.7s ease;
+}
+
+.avatar {
+  width: 160px;
+  height: 190px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 215, 0, 0.4);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+}
+
+/* ---------------------------------------------------
+   Tech Skills
+--------------------------------------------------- */
+.tech-list {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+/* Tech icon styles */
+.tech-item {
+  position: relative;
+  padding: 12px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  cursor: pointer;
+}
+
+.tech-icon {
+  width: 50px;
+  height: 50px;
+  transition: 0.3s ease;
+  filter: drop-shadow(0 0 0px transparent);
+}
+
+/* Glow effect on hover */
+.tech-item:hover .tech-icon {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 12px #ffd700);
+}
+
+/* Tooltip styling */
+.tech-tooltip {
+  position: absolute;
+  bottom: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 10px;
+  background: rgba(255, 215, 0, 0.85);
+  color: #000;
+  font-size: 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+}
+
+/* Show tooltip on hover */
+.tech-item:hover .tech-tooltip {
+  opacity: 1;
+  bottom: -35px;
+}
+
+/* ---------------------------------------------------
+   PROJECTS – PREMIUM UI
+--------------------------------------------------- */
+
+.projects {
+  display: flex;
+  gap: 50px;
+  margin-top: 4rem;
+  justify-items: center;
+}
+
+/* Outer wrapper */
+.project-card {
+  width: 270px;
+  height: 350px;
+  border-radius: 18px;
+  perspective: 1400px;
+  cursor: pointer;
+  transition: 0.35s ease;
+}
+
+.project-card:hover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 18px rgba(255, 187, 0, 0.914));
+}
+
+/* Inner rotating panel */
+.flip-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 18px;
+  transform-style: preserve-3d;
+  isolation: isolate;
+  transition: transform 0.65s cubic-bezier(.17,.89,.32,1.28);
+  background: rgba(255, 204, 0, 0.305);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+}
+
+.project-card.flipped .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+/* Both sides */
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Front (glass) */
+.flip-card-front {
+  gap: 1.1rem;
+  z-index: 3;
+}
+
+/* ✅ HIDE FRONT WHEN FLIPPED */
+.project-card.flipped .flip-card-front {
+  visibility: hidden !important;
+}
+
+/* 1. Disable transitions on front when flipped */
+.project-card.flipped .flip-card-front * {
+  transition: none !important;
+  transform: none !important;
+}
+
+/* 2. Stop hover tilt when flipped */
+.project-card.flipped {
+  transform: none !important;
+}
+
+/* Logo */
+.project-logo {
+  width: 120px;
+  height: 120px;
+  padding: 1px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  transition: 0.25s ease !important;
+  box-shadow: 0 0 20px rgba(255,215,0,0.18);
+}
+
+.project-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0,0,0,0.5);
+}
+
+.project-links { 
+  display: flex; 
+  gap: 14px;
+  transition: 0.25s ease !important;
+
+}
+
+/* Back (solid – NO transparency) */
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(180deg, #0a0a0a, #000);
+  padding: 28px;
+  justify-content: space-between;
+  z-index: 2;
+  backdrop-filter: none !important;
+}
+
+.flip-card-back .project-desc {
+  opacity: 0;
+  animation: fadeUp 0.45s ease-out forwards;
+  animation-delay: 0.25s;
+}
+
+.flip-card-back .project-tags {
+  opacity: 0;
+  animation: fadeUp 0.45s ease-out forwards;
+  animation-delay: 0.35s;
+}
+
+/* When card is flipped, show content */
+.project-card.flipped .flip-card-back * {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: fadeUp 0.4s ease-out forwards;
+}
+
+/* When card is NOT flipped, hide content */
+.project-card:not(.flipped) .flip-card-back * {
+  opacity: 0 !important;
+}
+
+.flip-card-back .project-links {
+  opacity: 0;
+  animation: fadeUp 0.45s ease-out forwards;
+  animation-delay: 0.45s;
+}
+
+/* Description */
+.project-desc {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: rgb(0, 247, 255);
+  line-height: 1.45;
+  text-align: center;
+}
+
+/* Tags */
+.project-tags {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.tag {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,215,0,0.25);
+  font-size: 0.8rem;
+  color: #00fffb;
+}
+
+/* Buttons */
+.icon-btn {
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.18);
+  transition: 0.3s ease;
+}
+
+.icon-btn:hover {
+  transform: translateY(-5px);
+  background: rgba(255,215,0,0.12);
+  border-color: gold;
+}
+
+.icon-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------
+   Contact Form
+------------------------------ */
+.contact-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 40px;
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+  animation: fadeIn 0.7s ease;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: #ffd700;
+}
+
+.contact-form input,
+.contact-form textarea {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  background: rgba(20, 20, 20, 0.6);
+  color: white;
+  font-size: 0.95rem;
+  outline: none;
+  transition: 0.25s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+}
+
+.contact-btn, .resume-btn {
+  margin-top: 10px;
+  padding: 12px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ffd700, #ffed9c);
+  color: #000;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.contact-btn:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+}
+
+/* ------------------------------
+   Contact Details
+------------------------------ */
+.contact-details {
+  text-align: center;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.details-title {
+  color: #ffd700;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+}
+
+.contact-details p {
+  margin: 4px 0;
+  font-size: 1rem;
+}
+
+/* ----------------------------------
+   Social Icons
+---------------------------------- */
+.social-icons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.social-icons img {
+  width: 30px;
+  height: 30px;
+  filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.4));
+  transition: transform 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+}
+
+.social-icons img:hover {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 12px rgba(255, 215, 0, 1));
+}
