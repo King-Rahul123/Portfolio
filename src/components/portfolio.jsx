@@ -219,7 +219,7 @@ export default function Portfolio(){
                     </div>
 
                     <aside className="profile-card glass">
-                        <div><img src={images['RKA.jpg']} alt="RKA"  className="avatar"/></div>
+                        <img src={images['RKA.jpg']} alt="RKA"  className="avatar"/>
                         <h3>{name}</h3>
                         <p className="small">Full‑Stack Developer</p>
                         <div className="stats">

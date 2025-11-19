@@ -463,16 +463,44 @@ nav a:hover {
   }
 }
 
+@media (max-width: 490px){
+  nav a {
+    font-size: 14px;
+  }
+  .header-flex {
+    justify-content: space-between;
+  }
+  .logo {
+    display: contents;
+    font-size: 22px;
+  }
+  .container {
+    padding: 30px;
+  }
+  .profile-card {
+    text-align: center;
+  }
+  .avatar {
+    margin-left: 37%;
+  }
+  .project-logo {
+    max-height: 90px;
+    max-width: 90px;
+  }
+  .projects-grid {
+    overflow: scroll;
+  }
+}
+
 .flip-card{
   perspective: 1000px;
   cursor: pointer;
-  
 }
 
 .flip-card-inner{
   position: relative;
   width: 100%;
-  min-height: 220px;
+  min-height: 240px;
   transition: transform 0.6s ease;
   transform-style: preserve-3d;
 }
