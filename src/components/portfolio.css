@@ -480,9 +480,7 @@ nav a:hover {
   .profile-card {
     text-align: center;
   }
-  .avatar {
-    margin-left: 37%;
-  }
+  
   .project-logo {
     max-height: 90px;
     max-width: 90px;
