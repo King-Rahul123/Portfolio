@@ -57,7 +57,7 @@ export default function Portfolio(){
             description:'SIDD AI is an advanced voice-controlled personal assistant designed for real-time system control and intelligent interaction. It understands spoken commands, performs system and app-level actions, and responds with human-like conversation.',
             // p:'WORKING ON PROCESS',
             tags:['Python'],
-            logo: images['Sidd_Ai.png'],
+            logo: images['Sidd_ai.jpg'],
             github: "https://github.com/King-Rahul123/SIDD_AI",
             demo: "",
         },
