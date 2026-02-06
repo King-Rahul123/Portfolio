@@ -1,0 +1,52 @@
+.hacker-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  color: yellow;
+  font-family: "Fira Code", monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.3s ease;
+}
+
+.hacker-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.terminal-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  50.01%, 100% {
+    opacity: 0;
+  }
+}
+
+.intro-container {
+  position: fixed;
+  inset: 0;
+  background: black;
+  color: yellow;
+  font-family: "Fira Code", monospace;
+  overflow: hidden;
+  z-index: 9999;
+}
+
+canvas#matrix {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
