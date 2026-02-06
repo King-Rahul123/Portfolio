@@ -2,12 +2,15 @@ import { useEffect, useMemo, useState } from "react";
 import "../Intro.css";
 
 export default function Intro({ onFinish }) {
-  const lines = useMemo(() => [
-    "> initializing system...",
-    "> access granted ✔",
-    "",
-    "> welcome to the portfolio...",
-  ], []);
+  const lines = useMemo(
+    () => [
+      "> initializing system...",
+      "> access granted ✔",
+      "",
+      "> welcome to the portfolio...",
+    ],
+    []
+  );
 
   const [displayedText, setDisplayedText] = useState("");
   const [lineIndex, setLineIndex] = useState(0);
@@ -15,16 +18,15 @@ export default function Intro({ onFinish }) {
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
+    // ✅ All lines finished → fade + exit
     if (lineIndex >= lines.length) {
-      // start fade out after typing ends
       const fadeTimer = setTimeout(() => {
         setFadeOut(true);
       }, 800);
 
-      // switch page after fade
       const finishTimer = setTimeout(() => {
-        onFinish?.();
-      }, 1400);
+        onFinish?.(); // unmount AFTER fade completes
+      }, 1400); // 800ms wait + 600ms fade
 
       return () => {
         clearTimeout(fadeTimer);
@@ -32,24 +34,28 @@ export default function Intro({ onFinish }) {
       };
     }
 
+    // ⌨️ Typing characters
     if (charIndex < lines[lineIndex].length) {
-      const timeout = setTimeout(() => {
+      const t = setTimeout(() => {
         setDisplayedText(prev => prev + lines[lineIndex][charIndex]);
         setCharIndex(prev => prev + 1);
       }, 40);
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => {
-        setDisplayedText(prev => prev + "\n");
-        setLineIndex(prev => prev + 1);
-        setCharIndex(0);
-      }, 300);
-      return () => clearTimeout(timeout);
+
+      return () => clearTimeout(t);
     }
+
+    // ↵ New line
+    const t = setTimeout(() => {
+      setDisplayedText(prev => prev + "\n");
+      setLineIndex(prev => prev + 1);
+      setCharIndex(0);
+    }, 300);
+
+    return () => clearTimeout(t);
   }, [charIndex, lineIndex, lines, onFinish]);
 
   return (
-    <div className={`hacker-screen ${fadeOut ? "fade-out" : ""}`}>
+    <div className={`max-h-screen hacker-screen ${fadeOut ? "fade-out" : ""}`}>
       <pre className="terminal-text border p-10">
         {displayedText}
         <span className="cursor">█</span>

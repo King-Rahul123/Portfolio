@@ -11,6 +11,7 @@ export default function Header({ name, theme, setTheme }) {
           <div className="text-amber-400 md:text-4xl text-2xl font-bold font-serif">{name.split(" ")[0]}</div>
 
           <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 md:gap-6 text-gray-800 font-medium">
+            <a href="#" className="hover:text-amber-500">Home</a>
             <a href="#about" className="hover:text-amber-500">About</a>
             <a href="#skills" className="hover:text-amber-500">Skills</a>
             <a href="#projects" className="hover:text-amber-500">Projects</a>
@@ -29,6 +30,7 @@ export default function Header({ name, theme, setTheme }) {
             <button className="text-xl ml-auto" onClick={() => setMenuOpen(false)}>&#10005;</button>
           </div>
 
+          <a href="#" className="block px-6 py-4 text-black" onClick={() => setMenuOpen(false)}>Home</a>
           <a href="#about" className="block px-6 py-4 text-black" onClick={() => setMenuOpen(false)}>About</a>
           <a href="#skills" className="block px-6 py-4 text-black" onClick={() => setMenuOpen(false)}>Skills</a>
           <a href="#projects" className="block px-6 py-4 text-black" onClick={() => setMenuOpen(false)}>Projects</a>

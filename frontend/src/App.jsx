@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         {showIntro && <Intro onFinish={() => setShowIntro(false)} />}
         <Routes>
-          <Route path="/" element={<Portfolio />} />
+          <Route path="/" element={<Portfolio introDone={!showIntro} />} />
         </Routes>
       </BrowserRouter>
   );
