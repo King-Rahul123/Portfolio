@@ -4,7 +4,7 @@ const Projects = [
     title: "Portfolio Hub",
     description:
       "A dynamic portfolio generator that lets users create a fully designed, personalized portfolio by simply entering their details.",
-    tags: ["React", "Bootstrap", "Python", "Firebase"],
+    tags: ["React", "Python", "Firebase"],
     p: "WORK IN PROGRESS",
     logo: "/assets/portfolio_generator.png",
     github: "https://github.com/your-username/portfolio-hub",
@@ -16,7 +16,7 @@ const Projects = [
     description:
       "A platform for booking tourist buses and cars with simple and fast booking.",
     tags: ["Django"],
-    p: "WORK IN PROGRESS",
+    // p: "WORK IN PROGRESS",
     logo: "/assets/RideNGO.jpeg",
     github: "",
     demo: "",
@@ -27,6 +27,7 @@ const Projects = [
     description:
       "A voice-controlled personal assistant for system control and intelligent interaction.",
     tags: ["Python"],
+    p: "NOT UPLOADED",
     logo: "/assets/Sidd_Ai.png",
     github: "https://github.com/King-Rahul123/SIDD_AI",
     demo: "",

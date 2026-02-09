@@ -16,6 +16,10 @@ export default function Portfolio({ LoaderDone = true }){
     const [typedAbout, setTypedAbout] = useState('');
     const [aboutIndex, setAboutIndex] = useState(0);
 
+    //scrolling behaviour for projects section
+    const projectsScrollRef = useRef(null);
+    const [atEnd, setAtEnd] = useState(false);
+
     useEffect(() => {
     if (!LoaderDone) return; // wait until loader finishes
     if (aboutIndex < about.length) {
@@ -59,7 +63,23 @@ export default function Portfolio({ LoaderDone = true }){
         };
     },[]);
 
-    // scroll fade-in using IntersectionObserver
+    // Project scroll logic
+    useEffect(() => {
+        const el = projectsScrollRef.current;
+        if (!el) return;
+
+        const handleScroll = () => {
+            const isAtEnd =
+            Math.ceil(el.scrollLeft + el.clientWidth) >= el.scrollWidth;
+            setAtEnd(isAtEnd);
+        };
+
+        el.addEventListener('scroll', handleScroll);
+        handleScroll(); // initial check
+
+        return () => el.removeEventListener('scroll', handleScroll);
+    }, []);
+
     // observe section/footer and keep them visible once revealed
     useEffect(() => {
         if (!LoaderDone) return; // wait until loader finishes
@@ -148,32 +168,71 @@ export default function Portfolio({ LoaderDone = true }){
                 </div>
             </section>
 
-            <section id="skills" className="section container overflow-hidden">
+            <section id="skills" className="section container max-w-5xl overflow-hidden">
                 <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 md:mt-20 text-yellow-400 p-3">Tech Skills</h2>
                 <div className="relative w-full overflow-hidden p-10">
-                    <div className=" flex gap-14 items-center w-max animate-[scrollSkills_28s_linear_infinite] hover:[animation-play-state:paused]">
+                    <div className=" flex md:gap-12 gap-6 items-center w-max animate-[scrollSkills_28s_linear_infinite] hover:[animation-play-state:paused]">
                     {[...techs, ...techs].map((t, i) => (
                         <div key={`${t.id}-${i}`} className="group relative flex flex-col items-center">
-                            <img src={t.logo} alt={t.name} className="w-15 h-15 object-contain transition-transform duration-300 group-hover:scale-125 drop-shadow-lg group-hover:drop-shadow-[0_0_18px_rgba(255,208,0,0.8)]"/>
+                            <img src={t.logo} alt={t.name} className="md:w-15 md:h-15 h-12 w-12 object-contain transition-transform duration-300 group-hover:scale-125 drop-shadow-lg group-hover:drop-shadow-[0_0_18px_rgba(255,208,0,0.8)]"/>
                             <span className="absolute -bottom-8 px-3 py-1 text-xs rounded-full bg-black/80 text-white opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 pointer-events-none">
                                 {t.name}
                             </span>
                         </div>
                     ))}
                 </div>
-
                 {/* edge fade */}
                 <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-(--bg) via-transparent to-(--bg)" /></div>
             </section>
 
-            <section id="projects" className="container">
-                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-5 md:mt-20 text-yellow-400 p-3">Projects</h2>
-                <ProjectsFlip projects={Projects} />
+            <section id="projects" className="section container max-w-7xl mx-auto overflow-hidden">
+                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 md:mt-20 text-yellow-400 p-3">Projects</h2>
+                <div className="relative">
+                    <div className='hidden md:flex items-center gap-4'>
+                        <div ref={projectsScrollRef} id="projects-scroll" className="hidden md:flex flex-nowrap gap-6 overflow-x-auto scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden flex-1">
+                            {Projects.map((p) => (
+                                <div key={p.id} className="min-w-70 max-w-90">
+                                    <ProjectsFlip projects={[p]} />
+                                </div>
+                            ))}
+                        </div>
+
+                    </div>
+
+                    <div className="md:hidden flex flex-col gap-6">
+                        {Projects.slice(0, 5).map((p) => (
+                            <ProjectsFlip key={p.id} projects={[p]} />
+                        ))}
+
+                        {Projects.length > 5 && (
+                            <div className="flex justify-center pt-4">
+                                <a href="/projects" className="btn px-6 py-3 whitespace-nowrap">View More</a>
+                            </div>
+                        )}
+                    </div>
+
+                    {Projects.length > 4 && (
+                    <>
+                        {!atEnd && (
+                        <button onClick={() => projectsScrollRef.current?.scrollBy({ left: 320, behavior: 'smooth', })}
+                            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 h-12 w-12 items-center justify-center rounded-full bg-black/60 backdrop-blur text-white hover:bg-yellow-400 hover:text-black transition shadow-lg"
+                            aria-label="Scroll projects">
+                            &#8594;
+                        </button>
+                        )}
+
+                        {/* More button (only when at end) */}
+                        {atEnd && (
+                            <a href="/projects" className="btn px-6 py-3 whitespace-nowrap shrink-0">View More</a>
+                        )}
+                    </>
+                    )}
+                </div>
             </section>
 
-            <section id='achivements' className="container">
-                <h2 className="md:text-5xl text-4xl font-bold font-serif mb-10 md:mt-20 text-yellow-400 p-3">Achivements</h2>
-                <Achivements />
+            <section id='achievements' className="container">
+                <h2 className="md:text-5xl text-4xl font-bold font-serif mb-10 md:mt-20 text-yellow-400 p-3">Achievements</h2>
+                {/* <Achievements /> */}
                 {/* <div className="grid md:grid-cols-2 gap-8">
                     <div className="glass p-5 rounded-2xl shadow-lg">
                         <h3 className="text-2xl font-semibold mb-3">Hacktoberfest 2023</h3>

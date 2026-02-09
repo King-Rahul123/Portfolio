@@ -15,19 +15,19 @@ export default function ProjectsFlip({ projects = [] }) {
         if (!slider) return;
 
         const start = () => {
-        intervalRef.current = setInterval(() => {
-            slider.scrollBy({ left: 300, behavior: "smooth" });
+            intervalRef.current = setInterval(() => {
+                slider.scrollBy({ left: 300, behavior: "smooth" });
 
-            // loop back
-            if (
-            slider.scrollLeft + slider.clientWidth >=
-            slider.scrollWidth - 10
-            ) {
-            setTimeout(() => {
-                slider.scrollTo({ left: 0, behavior: "smooth" });
-            }, 600);
-            }
-        }, 3000);
+                // loop back
+                if (
+                    slider.scrollLeft + slider.clientWidth >=
+                    slider.scrollWidth - 10
+                ) {
+                    setTimeout(() => {
+                        slider.scrollTo({ left: 0, behavior: "smooth" });
+                    }, 600);
+                }
+            }, 3000);
         };
 
         const stop = () => clearInterval(intervalRef.current);
@@ -39,16 +39,16 @@ export default function ProjectsFlip({ projects = [] }) {
         slider.addEventListener("touchend", start);
 
         return () => {
-        stop();
-        slider.removeEventListener("mouseenter", stop);
-        slider.removeEventListener("mouseleave", start);
-        slider.removeEventListener("touchstart", stop);
-        slider.removeEventListener("touchend", start);
+            stop();
+            slider.removeEventListener("mouseenter", stop);
+            slider.removeEventListener("mouseleave", start);
+            slider.removeEventListener("touchstart", stop);
+            slider.removeEventListener("touchend", start);
         };
     }, []);
 
     return (
-        <div ref={sliderRef} className="projects-grid grid gap-5 md:grid-cols-5 md:h-auto h-70">
+        <div ref={sliderRef}>
             {projects.map((p) => (
                 <div key={p.id} className={`flip-card gradient-border ${flipped === p.id ? "flipped" : ""}`} onClick={() => toggle(p.id)} role="button" tabIndex={0} onKeyDown={(e) => {
                     if (e.key === "Enter" || e.key === " ") toggle(p.id);
