@@ -5,8 +5,9 @@ import Header from "../components/Header";
 import ProjectsFlip from "../components/projects_flip";
 import Projects from "../components/Projects";
 import techs from "../components/Skills";
+import Achivements from '../components/Achivements';
 
-export default function Portfolio(){
+export default function Portfolio({ LoaderDone = true }){
     const name = 'Rahul Kumar Adak';
     const title = 'Full‑Stack Developer';
     const about = `I'm a passionate developer who enjoys building polished web apps and developer tools. I work with Python, React, Node, HTML, CSS, JS, Django, Firebase and other databases. I do some projects with creative design and make it simpler.`;
@@ -16,6 +17,7 @@ export default function Portfolio(){
     const [aboutIndex, setAboutIndex] = useState(0);
 
     useEffect(() => {
+    if (!LoaderDone) return; // wait until loader finishes
     if (aboutIndex < about.length) {
         const timeout = setTimeout(() => {
         setTypedAbout(prev => prev + about[aboutIndex]);
@@ -24,7 +26,7 @@ export default function Portfolio(){
 
         return () => clearTimeout(timeout);
     }
-    }, [aboutIndex, about]);
+    }, [aboutIndex, about, LoaderDone]);
 
     // theme
     const [theme, setTheme] = useState('dark');
@@ -57,6 +59,28 @@ export default function Portfolio(){
         };
     },[]);
 
+    // scroll fade-in using IntersectionObserver
+    // observe section/footer and keep them visible once revealed
+    useEffect(() => {
+        if (!LoaderDone) return; // wait until loader finishes
+
+        const elems = document.querySelectorAll('section, footer');
+        if (!elems || elems.length === 0) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                    // do not remove 'visible' when leaving viewport to avoid blank gaps
+                });
+            },
+            { threshold: 0.18 }
+        );
+
+        elems.forEach(el => observer.observe(el));
+        return () => observer.disconnect();
+    }, [LoaderDone]);
+
     // compute projectsDone
     const projectsDone = Projects.length ? Math.max(...Projects.map(p => p.id)) : 0;
 
@@ -69,7 +93,7 @@ export default function Portfolio(){
                 <div className="hero-inner">
                     <div className="flex-1 text-left">
 
-                        <h1 className="name-3d text-5xl font-serif">{name}</h1>
+                        <h1 className="name-3d text-4xl md:text-5xl font-serif">{name}</h1>
                         <p className="lead">{title}</p>
                         <p className="about">
                             {typedAbout}
@@ -93,12 +117,12 @@ export default function Portfolio(){
                         <p className="small text-center">Full‑Stack Developer</p>
                         <div className="stats">
                             <div>
-                                <strong>{projectsDone}{projectsDone >= 10 ? '+' : '+ '}</strong>
+                                <strong>{projectsDone}{projectsDone >= 5 ? '+' : ' '}</strong>
                                 <span>Projects</span>
                             </div>
                             <div>
                                 <strong>5+</strong>
-                                <span>Certificates</span>
+                                <span>Achievements</span>
                             </div>
                         </div>
                     </aside>
@@ -106,7 +130,7 @@ export default function Portfolio(){
             </main>
 
             <section id="about" className="section container">
-                <h2 className="text-5xl font-bold font-serif mb-8 md:mt-20 text-yellow-400 p-3">About</h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-8 md:mt-20 text-yellow-400 p-3">About</h2>
                 <div className='grid md:grid-cols-2'>
                     <div className="flex justify-center">
                         <img src="/assets/RKA.jpg" alt="About me" className="w-65 rounded-full object-cover shadow-lg" />
@@ -125,7 +149,7 @@ export default function Portfolio(){
             </section>
 
             <section id="skills" className="section container overflow-hidden">
-                <h2 className="text-5xl font-bold font-serif mb-6 md:mt-20 text-yellow-400 p-3">Tech Skills</h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 md:mt-20 text-yellow-400 p-3">Tech Skills</h2>
                 <div className="relative w-full overflow-hidden p-10">
                     <div className=" flex gap-14 items-center w-max animate-[scrollSkills_28s_linear_infinite] hover:[animation-play-state:paused]">
                     {[...techs, ...techs].map((t, i) => (
@@ -143,12 +167,27 @@ export default function Portfolio(){
             </section>
 
             <section id="projects" className="container">
-                <h2 className="text-5xl font-bold font-serif mb-5 md:mt-20 text-yellow-400 p-3">Projects</h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-5 md:mt-20 text-yellow-400 p-3">Projects</h2>
                 <ProjectsFlip projects={Projects} />
             </section>
 
+            <section id='achivements' className="container">
+                <h2 className="md:text-5xl text-4xl font-bold font-serif mb-10 md:mt-20 text-yellow-400 p-3">Achivements</h2>
+                <Achivements />
+                {/* <div className="grid md:grid-cols-2 gap-8">
+                    <div className="glass p-5 rounded-2xl shadow-lg">
+                        <h3 className="text-2xl font-semibold mb-3">Hacktoberfest 2023</h3>
+                        <p className="text-gray-300">Contributed to open source projects and earned the Hacktoberfest 2023 t-shirt and badge.</p>
+                    </div>
+                    <div className="glass p-5 rounded-2xl shadow-lg">
+                        <h3 className="text-2xl font-semibold mb-3">Top Performer at CodeChef</h3>
+                        <p className="text-gray-300">Achieved a top 10% ranking in multiple CodeChef contests, demonstrating strong problem-solving skills.</p>
+                    </div>
+                </div> */}
+            </section>
+
             <section id="contact" className="container contact-section">
-                <h2 className="text-5xl font-bold font-serif mb-3 md:mt-20 text-yellow-400 p-3">Contact</h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-3 md:mt-20 text-yellow-400 p-3">Contact</h2>
                 <form className="contact-form" onSubmit={(e)=>{e.preventDefault(); alert('Form submitted — implement backend');}}>
                     <input placeholder="Your name" required />
                     <input type="email" placeholder="Email" required />
@@ -177,42 +216,61 @@ export default function Portfolio(){
                         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111432.png" style={{ background: 'white', borderRadius: '50%'}} alt="GitHub" />
                     </a>
                 </div>
-
             </section>
 
-            <div className="mt-16 w-full max-w-4xl mx-auto">
-                <h3 className="text-3xl font-semibold mb-10 text-yellow-400 text-center tracking-wide">Contact Information</h3>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-10 shadow-[0_30px_80px_rgba(0,0,0,0.55)]">
-                    {/* Name */}
-                    <div className="space-y-1">
-                        <p className="text-sm uppercase tracking-wider text-gray-400"><i className='fas fa-user'></i> Full Name</p>
-                        <p className="text-lg font-medium text-white">Rahul Kumar Adak</p>
+            <footer className="footer mt-32 bg-linear-to-b from-yellow-400/10 to-black/40 backdrop-blur-xl border-t border-white/10 px-6 pt-16 pb-6">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+
+                    {/* Brand */}
+                    <div className="flex flex-col gap-5 mt-auto">
+                        <h3 className="text-2xl font-bold text-yellow-400 mb-1">Rahul Kumar Adak</h3>
+                        <p className="text-sm text-gray-400 mb-4">Full-Stack Developer</p>
+                        <p className="text-sm leading-relaxed text-gray-400 max-w-md">
+                            I design and build modern, high-performance web applications with clean
+                            architecture, smooth UI, and a strong focus on user experience.
+                        </p>
                     </div>
 
-                    {/* Location */}
-                    <div className="space-y-1">
-                        <p className="text-sm uppercase tracking-wider text-gray-400"><i className='fas fa-map-marker-alt'></i> Location</p>
-                        <p className="text-lg font-medium text-white">Paschim Medinipur, India</p>
+                    {/* Quick Links */}
+                    <div>
+                        <h4 className="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                        <nav className="flex flex-col">
+                            <a href="#about">About</a>
+                            <a href="#skills">Skills</a>
+                            <a href="#projects">Projects</a>
+                            <a href="#achievements">Achievements</a>
+                        </nav>
                     </div>
 
-                    {/* Email */}
-                    <div className="space-y-1">
-                        <p className="text-sm uppercase tracking-wider text-gray-400"><i className='fas fa-envelope'></i> Email</p>
-                        <a href="mailto:adakrahul15@gmail.com" className="text-lg font-medium text-white hover:text-yellow-400 transition-colors">adakrahul15@gmail.com</a>
-                    </div>
+                    {/* Contact */}
+                    <div className='flex flex-col gap-2 mt-auto'>
+                        <h4 className="text-lg font-semibold text-white mb-4">Get in Touch</h4>
+                        <div className="flex flex-col gap-3 text-gray-400 text-sm">
+                            <a href="mailto:adakrahul15@gmail.com" className="hover:text-amber-500 transition"><i className="fas fa-envelope"></i> adakrahul15@gmail.com</a>
+                            <a href="tel:+918145322318" className="hover:text-blue-500 transition"><i className="fas fa-phone"></i> +91 81453 22318 </a>
+                            <a href="" className='hover:text-green-500 transition'><i className='fab fa-whatsapp'></i> +91 81453 22318</a>
+                        </div>
 
-                    {/* Phone */}
-                    <div className="space-y-1">
-                        <p className="text-sm uppercase tracking-wider text-gray-400"><i className='fas fa-phone'></i> Phone</p>
-                        <a href="tel:+918145322318" className="text-lg font-medium text-white hover:text-yellow-400 transition-colors">+91 81453 22318</a>
+                        {/* Social Buttons */}
+                        <div className="flex gap-4 mt-5 flex-wrap text-lg text-white justify-center">
+                            <a href="https://github.com/King-Rahul123" title="GitHub" target="_blank" rel="noopener noreferrer" className="group">
+                                <i className="fab fa-github text-xl transition-all duration-300 ease-out group-hover:text-yellow-400 group-hover:scale-125 inline-block"></i>
+                            </a>
+                            <a href="https://linkedin.com/in/rahul-adak-b93463303" title='LinkedIn' target="_blank" className='group'>
+                                <i className="fab fa-linkedin text-xl transition-all duration-300 ease-out group-hover:text-blue-500 group-hover:scale-125 inline-block"></i>
+                            </a>
+                            <a href="/assets/CV.pdf" title='Resume' target="_blank" className='group'>
+                                <i className="fas fa-file-text text-xl transition-all duration-300 ease-out group-hover:text-yellow-400 group-hover:scale-125 inline-block"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 
-                {/* Availability line */}
-                <p className="mt-8 text-center text-sm text-gray-400">
-                    Available for full-time roles, freelance projects, and long-term collaborations.
-                </p>
-            </div>
+                {/* Bottom Bar */}
+                <div className="mt-12 pt-4 border-t border-white/10 text-center text-xs text-gray-500">
+                    © {new Date().getFullYear()} Rahul Kumar Adak — Built with React & Tailwind
+                </div>
+            </footer>
         </div>
     );
 }

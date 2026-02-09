@@ -31,6 +31,24 @@ const Projects = [
     github: "https://github.com/King-Rahul123/SIDD_AI",
     demo: "",
   },
+  {
+    id: 4,
+    title: "Plywood",
+    description:"A platform for collaborative project management, enabling teams to plan, track, and manage tasks efficiently.",
+    tags: ["React"],
+    logo: "https://plywood-two.vercel.app/assets/logo.png",
+    github: "https://github.com/King-Rahul123/Plywood.git",
+    demo: "https://plywood-two.vercel.app/",
+  },
+  {
+    id: 5,
+    title: "Woodqart",
+    description:"A 3D wood carving simulator built with React Three Fiber, allowing users to create and visualize intricate wood designs in a virtual environment.",
+    tags: ["React"],
+    logo: "",
+    github: "https://github.com/King-Rahul123/Simple-Project.git",
+    demo: "https://simple-project-kappa.vercel.app/",
+  },
 ];
 
 export default Projects;

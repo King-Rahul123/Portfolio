@@ -1,7 +1,7 @@
 .hacker-screen {
   position: fixed;
   inset: 0;
-  background: #000;
+  background: #000 !important;
   color: yellow;
   font-family: "Fira Code", monospace;
   display: flex;
@@ -22,6 +22,18 @@
   white-space: pre-wrap;
 }
 
+/* terminal box styling (replaces utility classes like `border p-10`) */
+.terminal-box{
+  background: transparent;
+  color: #ffd500;
+  border-width: 1px;
+  border-style: solid;
+  padding: 2.5rem; /* ~p-10 */
+  border-radius: 10px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  max-width: 90ch;
+}
+
 .cursor {
   animation: blink 1s infinite;
 }
@@ -33,20 +45,4 @@
   50.01%, 100% {
     opacity: 0;
   }
-}
-
-.intro-container {
-  position: fixed;
-  inset: 0;
-  background: black;
-  color: yellow;
-  font-family: "Fira Code", monospace;
-  overflow: hidden;
-  z-index: 9999;
-}
-
-canvas#matrix {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
 }

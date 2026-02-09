@@ -58,10 +58,12 @@ export default function ProjectsFlip({ projects = [] }) {
                         <div className="flip-card-front glass">
                             <div className="project-logo-wrap">
                                 {p.logo ? (
-                                <img src={p.logo} alt={`${p.title} logo`} className="project-logo"/>
+                                <img src={p.logo} alt={`${p.title} logo`} className="project-logo bg-white rounded-2xl"/>
                                 ) : (
-                                <div className="project-fallback">
-                                    {(p.title || "").slice(0, 2).toUpperCase()}
+                                <div className="project-fallback flex items-center justify-center text-center px-2">
+                                    <span className="text-sm font-semibold leading-tight line-clamp-2">
+                                        {(p.title || "").toLowerCase()}
+                                    </span>
                                 </div>
                                 )}
                             </div>

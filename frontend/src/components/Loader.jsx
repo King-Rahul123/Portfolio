@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import "../Intro.css";
+import "../Loader.css";
 
-export default function Intro({ onFinish }) {
+export default function Loader({ onFinish }) {
   const lines = useMemo(
     () => [
       "> initializing system...",
@@ -54,9 +54,16 @@ export default function Intro({ onFinish }) {
     return () => clearTimeout(t);
   }, [charIndex, lineIndex, lines, onFinish]);
 
+  // lock body scroll while loader is mounted
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = prev; };
+  }, []);
+
   return (
-    <div className={`max-h-screen hacker-screen ${fadeOut ? "fade-out" : ""}`}>
-      <pre className="terminal-text border p-10">
+    <div className={`hacker-screen ${fadeOut ? "fade-out" : ""}`}>
+      <pre className="terminal-text terminal-box border border-yellow-400">
         {displayedText}
         <span className="cursor">█</span>
       </pre>

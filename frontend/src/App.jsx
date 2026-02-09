@@ -2,16 +2,16 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Portfolio from "./pages/Landing.jsx";
-import Intro from "./components/Intro.jsx";
+import Loader from "./components/Loader.jsx";
 
 function App() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
 
   return (
       <BrowserRouter>
-        {showIntro && <Intro onFinish={() => setShowIntro(false)} />}
+        {showLoader && <Loader onFinish={() => setShowLoader(false)} />}
         <Routes>
-          <Route path="/" element={<Portfolio introDone={!showIntro} />} />
+          <Route path="/" element={<Portfolio LoaderDone={!showLoader} />} />
         </Routes>
       </BrowserRouter>
   );
