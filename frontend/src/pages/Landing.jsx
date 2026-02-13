@@ -130,8 +130,8 @@ export default function Portfolio({ LoaderDone = true }){
                     </div>
 
                     <aside className="profile-card glass">
-                        <div className='flex justify-center mb-6'>
-                            <img src="/assets/RKA.jpg" alt="RKA"  className="avatar"/>
+                        <div className='flex justify-center mb-6 mt-4'>
+                            <img src="/assets/RKA.jpg" alt="RKA"  className="avatar border border-yellow-400 shadow-[0_0_15px_rgba(255,208,0,0.8)] hover:shadow-[0_0_30px_rgba(255,208,0,1)] transition-all duration-500"/>
                         </div>
                         <h2 className='text-center font-serif text-lg'>{name}</h2>
                         <p className="small text-center">Full‑Stack Developer</p>
@@ -151,9 +151,9 @@ export default function Portfolio({ LoaderDone = true }){
 
             <section id="about" className="section container">
                 <h2 className="text-4xl md:text-5xl font-bold font-serif mb-8 md:mt-20 text-yellow-400 p-3">About</h2>
-                <div className='grid md:grid-cols-2'>
+                <div className='grid md:grid-cols-2 pl-20 pr-30 gap-10 items-center'>
                     <div className="flex justify-center">
-                        <img src="/assets/RKA.jpg" alt="About me" className="w-65 rounded-full object-cover shadow-lg" />
+                        <img src="/assets/RKA.jpg" alt="About me" className="w-60 h-75 border-yellow-300 border-dashed border rounded-b-full rounded-t-full object-cover shadow-lg drop-shadow-[0_0_18px_rgba(255,208,0,0.8)]" />
                     </div>
                     <div className='p-5 text-lg space-y-3'>
                         <p>
