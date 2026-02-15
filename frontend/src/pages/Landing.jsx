@@ -185,45 +185,61 @@ export default function Portfolio({ LoaderDone = true }){
                 <div className="pointer-events-none absolute inset-0 bg-linear-to-r from-(--bg) via-transparent to-(--bg)" /></div>
             </section>
 
-            <section id="projects" className="section container max-w-7xl mx-auto overflow-hidden">
-                <h2 className="text-4xl md:text-5xl font-bold font-serif mb-6 md:mt-20 text-yellow-400 p-3">Projects</h2>
+            <section id="projects" className="section container max-w-7xl mx-auto overflow-hidden py-16">
+                {/* Section Header */}
+                <div className="text-center mb-12">
+                    <h2 className="text-4xl md:text-5xl font-bold font-serif text-yellow-400 mb-4 drop-shadow-[0_0_25px_rgba(255,208,0,0.3)]">Featured Projects</h2>
+                    <p className="text-gray-400 max-w-2xl mx-auto text-lg">Explore my recent work showcasing creative solutions and technical expertise</p>
+                    <div className="w-24 h-1 bg-linear-to-r from-yellow-400 via-amber-500 to-yellow-400 mx-auto mt-6 rounded-full"></div>
+                </div>
+                
                 <div className="relative">
+                    {/* Desktop View */}
                     <div className='hidden md:flex items-center gap-4'>
-                        <div ref={projectsScrollRef} id="projects-scroll" className="hidden md:flex flex-nowrap gap-6 overflow-x-auto scroll-smooth pb-4 [&::-webkit-scrollbar]:hidden flex-1">
+                        <div ref={projectsScrollRef} id="projects-scroll" className="hidden md:flex flex-nowrap gap-8 overflow-x-auto scroll-smooth pb-6 pt-4 px-4 [&::-webkit-scrollbar]:hidden flex-1">
                             {Projects.map((p) => (
-                                <div key={p.id} className="min-w-70 max-w-90">
+                                <div key={p.id} className="min-w-70 max-w-80 transform hover:scale-[1] transition-transform duration-300">
                                     <ProjectsFlip projects={[p]} />
                                 </div>
                             ))}
                         </div>
-
                     </div>
 
-                    <div className="md:hidden flex flex-col gap-6">
-                        {Projects.slice(0, 5).map((p) => (
-                            <ProjectsFlip key={p.id} projects={[p]} />
+                    {/* Mobile View */}
+                    <div className="md:hidden flex flex-col gap-8 px-4">
+                        {Projects.slice(0, 3).map((p) => (
+                            <div key={p.id} className="transform hover:scale-[1.01] transition-transform duration-300">
+                                <ProjectsFlip projects={[p]} />
+                            </div>
                         ))}
 
-                        {Projects.length > 5 && (
-                            <div className="flex justify-center pt-4">
-                                <a href="/projects" className="btn px-6 py-3 whitespace-nowrap">View More</a>
+                        {Projects.length > 3 && (
+                            <div className="flex justify-center pt-6">
+                                <a href="/projects" className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-linear-to-r from-yellow-400 to-amber-500 text-slate-900 font-semibold hover:shadow-lg hover:shadow-yellow-400/30 hover:-translate-y-1 transition-all duration-300">
+                                    <span>View All Projects</span>
+                                    <i className="fas fa-arrow-right"></i>
+                                </a>
                             </div>
                         )}
                     </div>
 
-                    {Projects.length > 4 && (
+                    {/* Scroll Controls */}
+                    {Projects.length > 5 && (
                     <>
                         {!atEnd && (
                         <button onClick={() => projectsScrollRef.current?.scrollBy({ left: 320, behavior: 'smooth', })}
-                            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 h-12 w-12 items-center justify-center rounded-full bg-black/60 backdrop-blur text-white hover:bg-yellow-400 hover:text-black transition shadow-lg"
+                            className="hidden md:flex absolute right-2 top-1/2 -translate-y-1/2 h-14 w-14 items-center justify-center rounded-full bg-linear-to-r from-yellow-400 to-amber-500 text-slate-900 hover:shadow-lg hover:shadow-yellow-400/40 hover:scale-110 transition-all duration-300 shadow-xl"
                             aria-label="Scroll projects">
-                            &#8594;
+                            <i className="fas fa-chevron-right text-lg"></i>
                         </button>
                         )}
-
-                        {/* More button (only when at end) */}
                         {atEnd && (
-                            <a href="/projects" className="btn px-6 py-3 whitespace-nowrap shrink-0">View More</a>
+                            <div className="hidden md:flex justify-center mt-8">
+                                <a href="/projects" className="inline-flex items-center gap-2 px-8 py-3 rounded-xl bg-linear-to-r from-yellow-400 to-amber-500 text-slate-900 font-semibold hover:shadow-lg hover:shadow-yellow-400/30 hover:-translate-y-1 transition-all duration-300">
+                                    <span>View All Projects</span>
+                                    <i className="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
                         )}
                     </>
                     )}
@@ -293,7 +309,7 @@ export default function Portfolio({ LoaderDone = true }){
                             </a>
 
                             <a href="https://facebook.com/share/1Baiegjrux/" target="_blank" rel="noopener noreferrer" className="contact-social-btn group hover:bg-blue-700 hover:shadow-blue-600/30" title="Facebook">
-                                <i className="fab fa-facebook group-hover:text-blue-700 text-2xl"></i>
+                                <i className="fab fa-facebook group-hover:text-white text-2xl"></i>
                             </a>
 
                             <a href="https://instagram.com/rahul_adak1" target="_blank" rel="noopener noreferrer" className="contact-social-btn group hover:bg-linear-to-tr hover:from-[#833ab4] hover:via-[#fd1d1d] hover:to-[#fcb045] hover:shadow-pink-500/30" title="Instagram">
@@ -344,9 +360,6 @@ export default function Portfolio({ LoaderDone = true }){
                     </form>
                 </div>
             </section>
-
-            
-            
             
             <footer className="footer relative mt-32 overflow-hidden">
                 <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-yellow-400/60 to-transparent" />
@@ -372,21 +385,17 @@ export default function Portfolio({ LoaderDone = true }){
                         
                             {/* Social Icons */}
                             <div className="flex gap-3 pt-2">
-                                <a href="https://github.com/King-Rahul123" target="_blank" rel="noopener noreferrer" 
-                                className="footer-social-btn group" title="GitHub">
-                                    <i className="fab fa-github transition-all duration-300 group-hover:scale-110"></i>
+                                <a href="https://github.com/King-Rahul123" target="_blank" rel="noopener noreferrer" className="footer-social-btn github group" title="GitHub">
+                                    <i className="fab fa-github text-white group-hover:text-black transition-all duration-300 group-hover:scale-110 text-xl"></i>
                                 </a>
-                                <a href="https://linkedin.com/in/rahul-adak-b93463303" target="_blank" rel="noopener noreferrer" 
-                                className="footer-social-btn linkedin group" title="LinkedIn">
-                                    <i className="fab fa-linkedin-in transition-all duration-300 group-hover:scale-110"></i>
+                                <a href="https://linkedin.com/in/rahul-adak-b93463303" target="_blank" rel="noopener noreferrer" className="footer-social-btn linkedin group" title="LinkedIn">
+                                    <i className="fab fa-linkedin-in text-blue-500 group-hover:text-white transition-all duration-300 group-hover:scale-110"></i>
                                 </a>
-                                <a href="https://facebook.com/share/1Baiegjrux/" target="_blank" rel="noopener noreferrer" 
-                                className="footer-social-btn facebook group" title="Facebook">
-                                    <i className="fab fa-facebook-f transition-all duration-300 group-hover:scale-110"></i>
+                                <a href="https://facebook.com/share/1Baiegjrux/" target="_blank" rel="noopener noreferrer" className="footer-social-btn facebook group" title="Facebook">
+                                    <i className="fab fa-facebook-f text-blue-700 group-hover:text-white transition-all duration-300 group-hover:scale-110"></i>
                                 </a>
-                                <a href="https://instagram.com/rahul_adak1" target="_blank" rel="noopener noreferrer" 
-                                className="footer-social-btn instagram group" title="Instagram">
-                                    <i className="fab fa-instagram transition-all duration-300 group-hover:scale-110"></i>
+                                <a href="https://instagram.com/rahul_adak1" target="_blank" rel="noopener noreferrer" className="footer-social-btn instagram group" title="Instagram">
+                                    <i className="fab fa-instagram bg-linear-to-tr from-[#833ab4] via-[#fd1d1d] to-[#fcb045] bg-clip-text text-transparent transition-all duration-300 group-hover:text-gray-300 group-hover:scale-110 text-xl"></i>
                                 </a>
                             </div>
                         </div>
@@ -408,15 +417,15 @@ export default function Portfolio({ LoaderDone = true }){
                             <h4 className="footer-heading">Get In Touch</h4>
                             <div className="space-y-4 items-center justify-center flex flex-col">
                                 <a href="mailto:adakrahul15@gmail.com" className="footer-contact-item group">
-                                    <span className="footer-contact-icon"><i className="fas fa-envelope"></i></span>
-                                    <span className="group-hover:text-yellow-400 transition-colors">adakrahul15@gmail.com</span>
+                                    <span className="footer-contact-icon email"><i className="fa-solid fa-m bg-linear-to-tr from-blue-600 via-red-500 to-green-500 bg-clip-text text-transparent group-hover:text-white"></i></span>
+                                    <span className="group-hover:bg-linear-to-tr from-blue-500 via-red-400 to-green-500 group-hover:bg-clip-text group-hover:text-transparent transition-colors">adakrahul15@gmail.com</span>
                                 </a>
                                 <a href="tel:+918145322318" className="footer-contact-item group">
-                                    <span className="footer-contact-icon phone"><i className="fas fa-phone"></i></span>
+                                    <span className="footer-contact-icon phone"><i className="fas fa-phone text-blue-500 group-hover:text-white"></i></span>
                                     <span className="group-hover:text-blue-400 transition-colors">+91 81453 22318</span>
                                 </a>
                                 <a href="https://wa.me/9903052224" target="_blank" rel="noopener noreferrer" className="footer-contact-item group">
-                                    <span className="footer-contact-icon whatsapp"><i className="fab fa-whatsapp"></i></span>
+                                    <span className="footer-contact-icon whatsapp"><i className="fab fa-whatsapp text-green-500 group-hover:text-white"></i></span>
                                     <span className="group-hover:text-green-400 transition-colors">+91 99030 52224</span>
                                 </a>
                             </div>

@@ -8,7 +8,7 @@ const Projects = [
     p: "WORK IN PROGRESS",
     logo: "/assets/portfolio_generator.png",
     github: "https://github.com/your-username/portfolio-hub",
-    demo: "#",
+    demo: "",
   },
   {
     id: 2,
@@ -18,8 +18,8 @@ const Projects = [
     tags: ["Django"],
     // p: "WORK IN PROGRESS",
     logo: "/assets/RideNGO.jpeg",
-    github: "",
-    demo: "",
+    github: "https://github.com/King-Rahul123/RideNGo.git",
+    demo: "https://rahul12.pythonanywhere.com",
   },
   {
     id: 3,
